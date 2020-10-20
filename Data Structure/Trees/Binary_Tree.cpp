@@ -11,8 +11,8 @@ public:
     }
 };
 void preoder(std::vector<NODE> *, int);
-void ineoder(std::vector<NODE> *, int);
-void postoder(std::vector<NODE> *, int);
+void inorder(std::vector<NODE> *, int);
+void postorder(std::vector<NODE> *, int);
 
 int main()
 {
@@ -37,9 +37,16 @@ int main()
     }
     std::cout << "Traversal\n";
     std::cout << "\tPre-Order Traversal\n\t";
-    preoder(&nodes, 0);
+    preoder(&nodes, 0); // Time-Complexity is O(n)
+    std::cout << '\n';
+
     std::cout << "\tIn-Order Traversal\n\t";
-    preoder(&nodes, 0);
+    inorder(&nodes, 0); // Time-Complexity is O(n)
+    std::cout << '\n';
+
+    std::cout << "\tPost-Order Traversal\n\t";
+    postorder(&nodes, 0); // TIme Complexity is O(n)
+    std::cout << '\n';
     return 0;
 }
 
@@ -51,5 +58,24 @@ void preoder(std::vector<NODE> *nodes, int root_index)
         preoder(nodes, 2 * root_index + 1);
         preoder(nodes, 2 * root_index + 2);
     }
-    std::cout << '\n';
+}
+
+void inorder(std::vector<NODE> *nodes, int root_index)
+{
+    if (root_index < nodes->size())
+    {
+        inorder(nodes, 2 * root_index + 1);
+        std::cout << (nodes->at(root_index).Key) << '-';
+        inorder(nodes, 2 * root_index + 2);
+    }
+}
+
+void postorder(std::vector<NODE> *nodes, int root_index)
+{
+    if (root_index < nodes->size())
+    {
+        inorder(nodes, 2 * root_index + 1);
+        inorder(nodes, 2 * root_index + 2);
+        std::cout << (nodes->at(root_index).Key) << '-';
+    }
 }
